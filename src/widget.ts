@@ -3,13 +3,31 @@
 
 import { Terminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
+import { WebglAddon } from 'xterm-addon-webgl';
+import { CanvasAddon } from 'xterm-addon-canvas';
+import { Unicode11Addon } from 'xterm-addon-unicode11';
 
 export function render({ model, el }) {
   const cols = model.get('_cols');
   const rows = model.get('_rows');
-  const terminal = new Terminal({cols, rows});
+  const font_size = el.dataset.fontSize;
+  const terminal = new Terminal({
+    allowProposedApi: true,
+      fontSize: font_size,
+      scrollback: 0,
+      fontFamily: "'Roboto Mono', Monaco, 'Courier New', monospace",
+    cols,
+    rows
+  });
   const fitAddon = new FitAddon();
   terminal.loadAddon(fitAddon);
+  const webglAddon = new WebglAddon();
+  terminal.loadAddon(webglAddon);
+  const canvasAddon = new CanvasAddon();
+  terminal.loadAddon(canvasAddon);
+  const unicode11Addon = new Unicode11Addon();
+  terminal.loadAddon(unicode11Addon);
+  terminal.unicode.activeVersion = "11";
   terminal.open(el);
   fitAddon.fit();
 
