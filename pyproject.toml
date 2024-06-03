@@ -30,7 +30,7 @@ classifiers = [
 ]
 dependencies = [
     "anywidget >=0.6.3,<1",
-    "textual",
+    "textual >=0.64.0,<0.65.0",
 ]
 
 [project.urls]

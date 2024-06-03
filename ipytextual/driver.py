@@ -40,14 +40,19 @@ class Driver(_Driver):
     """A headless driver that may be run remotely."""
 
     def __init__(
-        self, app: App, *, debug: bool = False, size: tuple[int, int] | None = None
+        self,
+        app: App,
+        *,
+        debug: bool = False,
+        mouse: bool = True,
+        size: tuple[int, int] | None = None
     ):
         if size is None:
             if SIZE[0] is not None:
                 width = SIZE[0]
                 height = SIZE[1]
                 size = width, height
-        super().__init__(app, debug=debug, size=size)
+        super().__init__(app, debug=debug, mouse=mouse, size=size)
         self.exit_event = Event()
         self._process_input_task = asyncio.create_task(self.process_input())
         self._stdout_queue = asyncio.Queue()
