@@ -24,9 +24,18 @@ class Widget(AnyWidget):
     _data_to_textual = Unicode().tag(sync=True)
     _cols = Int(80).tag(sync=True)
     _rows = Int(24).tag(sync=True)
+    _font_size = Int(20).tag(sync=True)
     _ready = Bool().tag(sync=True)
 
-    def __init__(self, app, cols: int | None = None, rows: int | None = None, *args, **kwargs):
+    def __init__(
+        self,
+        app,
+        cols: int | None = None,
+        rows: int | None = None,
+        font_size: int | None = None,
+        *args,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         self._app = app
         if cols is not None:
@@ -35,6 +44,8 @@ class Widget(AnyWidget):
         if rows is not None:
             self._rows = rows
             SIZE[1] = rows
+        if font_size is not None:
+            self._font_size = font_size
         self._data_from_textual_queue = asyncio.Queue()
         self._data_to_textual_queue = asyncio.Queue()
         self._ready_event = asyncio.Event()

@@ -10,7 +10,7 @@ import { Unicode11Addon } from 'xterm-addon-unicode11';
 export function render({ model, el }) {
   const cols = model.get('_cols');
   const rows = model.get('_rows');
-  const font_size = el.dataset.fontSize;
+  const font_size = model.get('_font_size');
   const terminal = new Terminal({
     allowProposedApi: true,
       fontSize: font_size,
